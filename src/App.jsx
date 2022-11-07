@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Button from './components/Button';
 import QuestionBody from './components/QuestionBody';
 import QuestionHeader from './components/QuestionHeader';
 
 const App = () => {
+  const isLoading = useRef(true);
   const [status, setStatus] = useState('beforeStart'); // beforeStart, taking, finished
   const [questions, setQuestions] = useState([]);
   const [questionIdx, setQuestionIdx] = useState(0);
@@ -11,12 +12,18 @@ const App = () => {
   const [isAnswered, setIsAnswered] = useState(false);
 
   useEffect(() => {
+    if (!isLoading.current) return;
     const getData = async () => {
-      await fetch('https://opentdb.com/api.php?amount=10&type=multiple')
-        .then((response) => response.json())
-        .then((data) => setQuestions(data.results));
+      try {
+        await fetch('https://opentdb.com/api.php?amount=10&type=multiple')
+          .then((response) => response.json())
+          .then((data) => setQuestions(data.results));
+      } catch (error) {
+        alert('error occured! ', error);
+      }
     };
     getData();
+    isLoading.current = false;
   }, []);
 
   const handleCorrectAnswer = () => {
@@ -25,21 +32,21 @@ const App = () => {
 
   const handleNextQuestion = () => {
     setIsAnswered(false);
-    if (questionIdx === 10) {
+    if (questionIdx === 9) {
       setStatus('finished');
     } else {
       setQuestionIdx(questionIdx + 1);
     }
   };
 
-  if (status === 'finished') return '끝!';
+  if (isLoading.current) return null;
 
   return (
     <>
       {(status === 'taking' || status === 'finished') && (
         <QuestionHeader
           status={status}
-          questionNo={questionIdx + 1}
+          questionIdx={questionIdx}
           correctAnswerCnt={correctAnswerCnt}
         />
       )}
@@ -51,7 +58,7 @@ const App = () => {
           setIsAnswered={setIsAnswered}
         />
       )}
-
+      {status === 'finished' && '끝!'}
       <Button
         status={status}
         handleStatus={setStatus}
