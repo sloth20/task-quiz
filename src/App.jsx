@@ -12,7 +12,7 @@ const App = () => {
 
   useEffect(() => {
     const getData = async () => {
-      await fetch('https://opentdb.com/api.php?amount=10')
+      await fetch('https://opentdb.com/api.php?amount=10&type=multiple')
         .then((response) => response.json())
         .then((data) => setQuestions(data.results));
     };
@@ -36,20 +36,22 @@ const App = () => {
 
   return (
     <>
-      {status === 'taking' && (
-        <>
-          <QuestionHeader
-            questionNo={questionIdx + 1}
-            correctAnswerCnt={correctAnswerCnt}
-          />
-          <QuestionBody
-            data={questions[questionIdx]}
-            handleCorrectAnswer={handleCorrectAnswer}
-            isAnswered={isAnswered}
-            setIsAnswered={setIsAnswered}
-          />
-        </>
+      {(status === 'taking' || status === 'finished') && (
+        <QuestionHeader
+          status={status}
+          questionNo={questionIdx + 1}
+          correctAnswerCnt={correctAnswerCnt}
+        />
       )}
+      {status === 'taking' && (
+        <QuestionBody
+          data={questions[questionIdx]}
+          handleCorrectAnswer={handleCorrectAnswer}
+          isAnswered={isAnswered}
+          setIsAnswered={setIsAnswered}
+        />
+      )}
+
       <Button
         status={status}
         handleStatus={setStatus}

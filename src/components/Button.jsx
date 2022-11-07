@@ -5,13 +5,13 @@ const Button = ({ status, handleStatus, handleNextQuestion, isAnswered }) => {
   if (status === 'beforeStart') {
     return (
       <button type="button" onClick={() => handleStatus('taking')}>
-        시작!
+        퀴즈 풀기
       </button>
     );
   } else if (status === 'taking' && isAnswered) {
     return (
       <button type="button" onClick={handleNextQuestion}>
-        다음 문제!
+        다음 문항
       </button>
     );
   }
