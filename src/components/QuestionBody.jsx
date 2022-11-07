@@ -48,11 +48,17 @@ const QuestionBody = ({
     setIsAnswered(true);
   };
 
+  const decodeHTMLEntities = (text) => {
+    var textArea = document.createElement('textarea');
+    textArea.innerHTML = text;
+    return textArea.value;
+  };
+
   return (
     <ul>
       <li>카테고리: {category}</li>
       <li>난이도: {difficulty}</li>
-      <li>문제: {question}</li>
+      <li>문제: {decodeHTMLEntities(question)}</li>
       <li>
         보기
         {answers.map((answer, index) => {
