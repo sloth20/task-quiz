@@ -1,39 +1,23 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import Utils from '../utils/Utils';
 
-const Timer = ({ status }) => {
+const Timer = ({ status, displayTime, setDisplayTime }) => {
   const [startTime, setStartTime] = useState(new Date().getTime());
-  const [displayTime, setDisplayTime] = useState(0);
-
-  const timer = setInterval(() => {
-    const presentTime = new Date().getTime();
-    setDisplayTime(presentTime - startTime);
-  }, 100);
 
   useEffect(() => {
-    if (status === 'finished') {
-      clearInterval(timer);
-    }
-  }, [status]);
+    const timer = setInterval(() => {
+      const presentTime = new Date().getTime();
+      setDisplayTime(presentTime - startTime);
+    }, 1000);
 
-  const displayTimeToHourAndMinAndSec = () => {
-    let sec = Math.floor((displayTime / 1000) % 60);
-    let min = Math.floor((displayTime / 1000 / 60) % 60);
-    let hour = Math.floor((displayTime / 1000 / 60 / 60) % 24);
-    if (sec < 10) {
-      sec = '0' + sec.toString();
-    }
-    if (min < 10) {
-      min = '0' + min.toString();
-    }
-    if (hour < 10) {
-      hour = '0' + hour.toString();
-    }
-    return `${hour}:${min}:${sec}`;
-  };
+    return () => {
+      clearInterval(timer);
+    };
+  }, []);
 
   return (
-    <div>{`경과한 시간: ${displayTimeToHourAndMinAndSec(displayTime)}`}</div>
+    <div>{`경과한 시간: ${Utils.timeToHourAndMinAndSec(displayTime)}`}</div>
   );
 };
 
@@ -41,4 +25,6 @@ export default Timer;
 
 Timer.propTypes = {
   status: PropTypes.string.isRequired,
+  displayTime: PropTypes.number.isRequired,
+  setDisplayTime: PropTypes.func.isRequired,
 };

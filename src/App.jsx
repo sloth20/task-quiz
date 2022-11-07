@@ -1,15 +1,19 @@
 import React, { useEffect, useRef, useState } from 'react';
+
 import Button from './components/Button';
 import QuestionBody from './components/QuestionBody';
 import QuestionHeader from './components/QuestionHeader';
+import Result from './components/Result';
 
 const App = () => {
   const isLoading = useRef(true);
+
   const [status, setStatus] = useState('beforeStart'); // beforeStart, taking, finished
   const [questions, setQuestions] = useState([]);
   const [questionIdx, setQuestionIdx] = useState(0);
   const [correctAnswerCnt, setCorrectAnswerCnt] = useState(0);
   const [isAnswered, setIsAnswered] = useState(false);
+  const [displayTime, setDisplayTime] = useState(0);
 
   useEffect(() => {
     if (!isLoading.current) return;
@@ -34,6 +38,7 @@ const App = () => {
     setIsAnswered(false);
     if (questionIdx === 9) {
       setStatus('finished');
+      console.log('status:', status);
     } else {
       setQuestionIdx(questionIdx + 1);
     }
@@ -43,22 +48,26 @@ const App = () => {
 
   return (
     <>
-      {(status === 'taking' || status === 'finished') && (
-        <QuestionHeader
-          status={status}
-          questionIdx={questionIdx}
-          correctAnswerCnt={correctAnswerCnt}
-        />
-      )}
       {status === 'taking' && (
-        <QuestionBody
-          data={questions[questionIdx]}
-          handleCorrectAnswer={handleCorrectAnswer}
-          isAnswered={isAnswered}
-          setIsAnswered={setIsAnswered}
-        />
+        <>
+          <QuestionHeader
+            status={status}
+            questionIdx={questionIdx}
+            displayTime={displayTime}
+            setDisplayTime={setDisplayTime}
+          />
+          <QuestionBody
+            data={questions[questionIdx]}
+            handleCorrectAnswer={handleCorrectAnswer}
+            isAnswered={isAnswered}
+            setIsAnswered={setIsAnswered}
+          />
+        </>
       )}
-      {status === 'finished' && '끝!'}
+      {status === 'finished' && (
+        <Result displayTime={displayTime} correctAnswerCnt={correctAnswerCnt} />
+      )}
+
       <Button
         status={status}
         handleStatus={setStatus}

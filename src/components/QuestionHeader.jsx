@@ -2,12 +2,20 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Timer from './Timer';
 
-const QuestionHeader = ({ status, questionIdx, correctAnswerCnt }) => {
+const QuestionHeader = ({
+  questionIdx,
+  status,
+  displayTime,
+  setDisplayTime,
+}) => {
   return (
     <>
-      <Timer status={status} />
+      <Timer
+        status={status}
+        displayTime={displayTime}
+        setDisplayTime={setDisplayTime}
+      />
       <div>현재 문제 번호: {questionIdx + 1}/10</div>
-      <div>맞춘 문제 개수: {correctAnswerCnt}</div>
     </>
   );
 };
@@ -15,7 +23,8 @@ const QuestionHeader = ({ status, questionIdx, correctAnswerCnt }) => {
 export default QuestionHeader;
 
 QuestionHeader.propTypes = {
-  status: PropTypes.string.isRequired,
   questionIdx: PropTypes.number.isRequired,
-  correctAnswerCnt: PropTypes.number.isRequired,
+  status: PropTypes.string.isRequired,
+  displayTime: PropTypes.number.isRequired,
+  setDisplayTime: PropTypes.func.isRequired,
 };
