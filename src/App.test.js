@@ -1,9 +1,19 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import App from './App';
+import userEvent from '@testing-library/user-event';
 
-test('renders learn react link', () => {
-  render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+describe('renders learn react link', () => {
+  it('should render App', async () => {
+    render(<App />);
+
+    await waitFor(() => {
+      expect(
+        screen.getByRole('button', { name: '퀴즈 풀기' }),
+      ).toBeInTheDocument();
+    });
+
+    const target = screen.getByRole('button', { name: '퀴즈 풀기' });
+    userEvent.click(target);
+  });
 });

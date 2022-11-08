@@ -38,7 +38,6 @@ const App = () => {
     setIsAnswered(false);
     if (questionIdx === 9) {
       setStatus('finished');
-      console.log('status:', status);
     } else {
       setQuestionIdx(questionIdx + 1);
     }
