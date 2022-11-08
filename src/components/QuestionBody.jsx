@@ -67,10 +67,10 @@ const QuestionBody = ({
       <li>문제: {decodeHTMLEntities(question)}</li>
       <FormControl>
         <RadioGroup name="radio-buttons-group">
-          {answers.map((answer) => {
+          {answers.map((answer, index) => {
             return (
               <FormControlLabel
-                key={answer.substr(0, 10)}
+                key={index}
                 value={answer}
                 onChange={handleChange}
                 disabled={isAnswered}

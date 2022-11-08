@@ -5,7 +5,11 @@ import MuiButton from '@mui/material/Button';
 const Button = ({ status, handleStatus, handleNextQuestion, isAnswered }) => {
   if (status === 'beforeStart') {
     return (
-      <MuiButton variant="contained" onClick={() => handleStatus('taking')}>
+      <MuiButton
+        variant="contained"
+        size="large"
+        onClick={() => handleStatus('taking')}
+      >
         퀴즈 풀기
       </MuiButton>
     );
