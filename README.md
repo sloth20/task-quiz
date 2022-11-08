@@ -1,10 +1,18 @@
 ### 퀴즈 풀기 토이 프로젝트
 
+#### 실행 방법
+
+- yarn 후 yarn start로 실행
+- yarn test로 테스트 실행
+
+#### 구현 사항
+
+- CRA를 이용해 프로젝트 생성
+- 함수형 컴포넌트, hooks 사용
+- 추가로 사용한 라이브러리: PropTypes, Material UI, React Test Library
+
 #### TODO
 
-- 로딩화면 넣기
-- props 정리하기
-- css 적용하기
-- 테스트 작성하기
-- 그래프?
-- button 손보기
+- button 손보기!!!
+- alert을 modal로 바꾸기
+- 로딩화면 넣기?

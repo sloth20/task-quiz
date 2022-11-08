@@ -1,21 +1,10 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import styled, { css } from 'styled-components';
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import FormHelperText from '@mui/material/FormHelperText';
-
-const Label = styled.label`
-  ${(props) =>
-    props.isAnswered &&
-    props.isCorrectAnswer &&
-    css`
-      color: blue;
-      font-weight: bold;
-    `}
-`;
 
 const QuestionBody = ({
   data,

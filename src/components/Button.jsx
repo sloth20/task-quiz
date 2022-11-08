@@ -15,7 +15,7 @@ const Button = ({ status, handleStatus, handleNextQuestion, isAnswered }) => {
     );
   } else if (status === 'taking' && isAnswered) {
     return (
-      <MuiButton variant="outlined" onClick={handleNextQuestion}>
+      <MuiButton variant="outlined" size="large" onClick={handleNextQuestion}>
         다음 문항
       </MuiButton>
     );
