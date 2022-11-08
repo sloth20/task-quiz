@@ -4,6 +4,7 @@ import Button from './components/Button';
 import QuestionBody from './components/QuestionBody';
 import QuestionHeader from './components/QuestionHeader';
 import Result from './components/Result';
+import './styles.css';
 
 const App = () => {
   const isLoading = useRef(true);
