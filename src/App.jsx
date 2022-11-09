@@ -16,17 +16,18 @@ const App = () => {
   const [isAnswered, setIsAnswered] = useState(false);
   const [displayTime, setDisplayTime] = useState(0);
 
+  const getData = async () => {
+    try {
+      await fetch('https://opentdb.com/api.php?amount=10&type=multiple')
+        .then((response) => response.json())
+        .then((data) => setQuestions(data.results));
+    } catch (error) {
+      alert('error occured! ', error);
+    }
+  };
+
   useEffect(() => {
     if (!isLoading.current) return;
-    const getData = async () => {
-      try {
-        await fetch('https://opentdb.com/api.php?amount=10&type=multiple')
-          .then((response) => response.json())
-          .then((data) => setQuestions(data.results));
-      } catch (error) {
-        alert('error occured! ', error);
-      }
-    };
     getData();
     isLoading.current = false;
   }, []);
@@ -44,10 +45,28 @@ const App = () => {
     }
   };
 
+  const handleReset = () => {
+    isLoading.current = true;
+    getData();
+    setIsAnswered(false);
+    setQuestionIdx(0);
+    setCorrectAnswerCnt(0);
+    setDisplayTime(0);
+    setStatus('taking');
+    isLoading.current = false;
+  };
+
   if (isLoading.current) return null;
 
   return (
     <>
+      {status === 'beforeStart' && (
+        <Button
+          text="퀴즈 풀기"
+          variant="contained"
+          onClick={() => setStatus('taking')}
+        />
+      )}
       {status === 'taking' && (
         <>
           <QuestionHeader
@@ -59,21 +78,19 @@ const App = () => {
           <QuestionBody
             data={questions[questionIdx]}
             handleCorrectAnswer={handleCorrectAnswer}
+            handleNextQuestion={handleNextQuestion}
             isAnswered={isAnswered}
             setIsAnswered={setIsAnswered}
           />
         </>
       )}
       {status === 'finished' && (
-        <Result displayTime={displayTime} correctAnswerCnt={correctAnswerCnt} />
+        <Result
+          displayTime={displayTime}
+          correctAnswerCnt={correctAnswerCnt}
+          handleReset={handleReset}
+        />
       )}
-
-      <Button
-        status={status}
-        handleStatus={setStatus}
-        handleNextQuestion={handleNextQuestion}
-        isAnswered={isAnswered}
-      />
     </>
   );
 };

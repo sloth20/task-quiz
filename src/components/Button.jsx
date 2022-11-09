@@ -2,31 +2,18 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import MuiButton from '@mui/material/Button';
 
-const Button = ({ status, handleStatus, handleNextQuestion, isAnswered }) => {
-  if (status === 'beforeStart') {
-    return (
-      <MuiButton
-        variant="contained"
-        size="large"
-        onClick={() => handleStatus('taking')}
-      >
-        퀴즈 풀기
-      </MuiButton>
-    );
-  } else if (status === 'taking' && isAnswered) {
-    return (
-      <MuiButton variant="outlined" size="large" onClick={handleNextQuestion}>
-        다음 문항
-      </MuiButton>
-    );
-  }
+const Button = ({ text, onClick, variant }) => {
+  return (
+    <MuiButton variant={variant} size="large" onClick={onClick}>
+      {text}
+    </MuiButton>
+  );
 };
 
 export default Button;
 
 Button.propTypes = {
-  status: PropTypes.string.isRequired,
-  handleStatus: PropTypes.func.isRequired,
-  handleNextQuestion: PropTypes.func.isRequired,
-  isAnswered: PropTypes.bool.isRequired,
+  text: PropTypes.string.isRequired,
+  onClick: PropTypes.func.isRequired,
+  variant: PropTypes.string.isRequired,
 };

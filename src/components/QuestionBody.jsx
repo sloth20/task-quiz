@@ -5,10 +5,12 @@ import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import FormHelperText from '@mui/material/FormHelperText';
+import Button from './Button';
 
 const QuestionBody = ({
   data,
   handleCorrectAnswer,
+  handleNextQuestion,
   isAnswered,
   setIsAnswered,
 }) => {
@@ -74,11 +76,18 @@ const QuestionBody = ({
         </RadioGroup>
       </FormControl>
       {isAnswered && (
-        <li>
-          <FormHelperText style={{ fontSize: '16px', color: 'blue' }}>
-            정답: {correct_answer}
-          </FormHelperText>
-        </li>
+        <>
+          <li>
+            <FormHelperText style={{ fontSize: '16px', color: 'blue' }}>
+              정답: {correct_answer}
+            </FormHelperText>
+          </li>
+          <Button
+            text="다음 문제"
+            variant="outlined"
+            onClick={handleNextQuestion}
+          />
+        </>
       )}
     </ul>
   );
@@ -89,6 +98,7 @@ export default QuestionBody;
 QuestionBody.propTypes = {
   data: PropTypes.object.isRequired,
   handleCorrectAnswer: PropTypes.func.isRequired,
+  handleNextQuestion: PropTypes.func.isRequired,
   isAnswered: PropTypes.bool.isRequired,
   setIsAnswered: PropTypes.func.isRequired,
 };

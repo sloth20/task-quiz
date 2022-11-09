@@ -13,6 +13,5 @@
 
 #### TODO
 
-- button 손보기!!!
 - alert을 modal로 바꾸기
 - 로딩화면 넣기?
