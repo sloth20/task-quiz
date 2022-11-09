@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { debounce } from 'lodash';
 
 import Button from './components/Button';
 import QuestionBody from './components/QuestionBody';
@@ -45,16 +46,16 @@ const App = () => {
     }
   };
 
-  const handleReset = () => {
+  const handleRestart = debounce(async () => {
     isLoading.current = true;
-    getData();
+    await getData();
     setIsAnswered(false);
     setQuestionIdx(0);
     setCorrectAnswerCnt(0);
     setDisplayTime(0);
     setStatus('taking');
     isLoading.current = false;
-  };
+  }, 500);
 
   if (isLoading.current) return null;
 
@@ -88,7 +89,7 @@ const App = () => {
         <Result
           displayTime={displayTime}
           correctAnswerCnt={correctAnswerCnt}
-          handleReset={handleReset}
+          handleRestart={handleRestart}
         />
       )}
     </>

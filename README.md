@@ -9,9 +9,4 @@
 
 - CRA를 이용해 프로젝트 생성
 - 함수형 컴포넌트, hooks 사용
-- 추가로 사용한 라이브러리: PropTypes, Material UI, React Test Library
-
-#### TODO
-
-- alert을 modal로 바꾸기
-- 로딩화면 넣기?
+- 추가로 사용한 라이브러리: PropTypes, Material UI, React Test Library, lodash

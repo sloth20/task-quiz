@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import Utils from '../utils/Utils';
 import Button from './Button';
 
-const Result = ({ displayTime, correctAnswerCnt, handleReset }) => {
+const Result = ({ displayTime, correctAnswerCnt, handleRestart }) => {
   return (
     <>
       <div style={{ textAlign: 'center', fontWeight: 'bold' }}>결과</div>
@@ -12,7 +12,7 @@ const Result = ({ displayTime, correctAnswerCnt, handleReset }) => {
       <div>맞은 문제 수: {correctAnswerCnt}</div>
       <div>틀린 문제 수: {10 - correctAnswerCnt}</div>
       <br />
-      <Button text="다시 풀기" variant="contained" onClick={handleReset} />
+      <Button text="다시 풀기" variant="contained" onClick={handleRestart} />
     </>
   );
 };
@@ -22,5 +22,5 @@ export default Result;
 Result.propTypes = {
   displayTime: PropTypes.number.isRequired,
   correctAnswerCnt: PropTypes.number.isRequired,
-  handleReset: PropTypes.func.isRequired,
+  handleRestart: PropTypes.func.isRequired,
 };

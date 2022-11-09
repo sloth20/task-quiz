@@ -22,8 +22,11 @@ const QuestionBody = ({
     data;
 
   useEffect(() => {
-    const newAnswers = [...incorrect_answers, correct_answer];
+    let newAnswers = [...incorrect_answers, correct_answer];
     newAnswers.sort(() => Math.random() - 0.5);
+    newAnswers = newAnswers.map((newAnswer) => {
+      return decodeHTMLEntities(newAnswer);
+    });
     setAnswers(newAnswers);
   }, [data]);
 
@@ -79,7 +82,7 @@ const QuestionBody = ({
         <>
           <li>
             <FormHelperText style={{ fontSize: '16px', color: 'blue' }}>
-              정답: {correct_answer}
+              정답: {decodeHTMLEntities(correct_answer)}
             </FormHelperText>
           </li>
           <Button
